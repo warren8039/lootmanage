@@ -1,0 +1,18 @@
+{% extends 'lootmanage/base.html' %}{% load static %}
+
+{% block title %}{{name}} 入力{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'lootmanage:top' %}">TOP</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{name}} ロット希望入力</li>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table">
+            {{ form.as_table }}
+        </table>
+        <button type="submit" class="btn btn-primary btn-sm">save</button>
+    </form>
+{% endblock %}

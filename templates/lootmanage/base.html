@@ -1,0 +1,24 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>ロット管理 {% block title %}{% endblock %}</title>   
+    <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}">
+    <script src="{% static '/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'lootmanage:top' %}">ロット管理</a>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">{% block breadcrumb %}{% endblock %}</ol>
+        </nav>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

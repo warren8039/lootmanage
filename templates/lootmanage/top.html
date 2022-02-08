@@ -1,0 +1,111 @@
+{% extends 'lootmanage/base.html' %}{% load static %}
+
+{% block title %}TOP{% endblock %}
+
+{% block head %}
+    <style type="text/css">
+        a.widelink { display: block; }
+    </style>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">TOP</li>
+{% endblock %}
+
+{% block content %}
+    <table class='table table-hober table-bordered'>
+        <thead class="thead-dark">
+            <tr align="center" valign="middle">
+                <th rowspan="2">roll</th>
+                <th rowspan="2">name</th>
+                <th colspan="3">weapon</th>
+                <th colspan="3">others</th>
+                <th rowspan="2">weapons</th>
+                <th rowspan="2">body</th>
+                <th rowspan="2">others</th>
+            </tr>
+            <tr align="center" valign="middle">
+                <th>1st</th>
+                <th>2nd</th>
+                <th>3rd</th>
+                <th>1st</th>
+                <th>2nd</th>
+                <th>3rd</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in member_list %}
+            <tr align="center" valign="middle">
+                <td>{{member.get_roll_display}}</td>
+                <td><a href="{% url 'lootmanage:want_edit' member.name %}">{{member.name}}</a></td>
+                <td>{{member.get_weapon1_display|default_if_none:""}}</td>
+                <td>{{member.get_weapon2_display|default_if_none:""}}</td>
+                <td>{{member.get_weapon3_display|default_if_none:""}}</td>
+                <td>{{member.get_other1_display|default_if_none:""}}</td>
+                <td>{{member.get_other2_display|default_if_none:""}}</td>
+                <td>{{member.get_other3_display|default_if_none:""}}</td>
+                <td>{{member.getWeapon}}</td>
+                <td>{{member.getBody}}</td>
+                <td>{{member.getItem}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="btn-group" role="group" aria-label="ボタングループサンプル">
+        <a class="btn btn-primary" href="{% url 'lootmanage:drop_add' '1' %}">1層</a>
+        <a class="btn btn-primary" href="{% url 'lootmanage:drop_add' '2' %}">2層</a>
+        <a class="btn btn-primary" href="{% url 'lootmanage:drop_add' '3' %}">3層</a>
+        <a class="btn btn-primary" href="{% url 'lootmanage:drop_add' '4' %}">4層</a>
+    </div><br>
+    <br>
+    <table class="table table-bordered">
+    {% for week,drop in drops.items %}
+        <tr><td>
+            <a class="widelink" data-toggle="collapse" href="#week_{{ week|date:"ynj" }}" aria-expand="false" aria-controls="#week_{{ week|date:"ynj" }}">{{week}}～</a>
+            <div class="collapse" id="week_{{ week|date:"ynj" }}">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr align="center" valign="middle">
+                            <th colspan="2" style="width: 25%">1層</th>
+                            <th colspan="2" style="width: 25%">2層</th>
+                            <th colspan="2" style="width: 25%">3層</th>
+                            <th colspan="2" style="width: 25%">4層</th>
+                        </tr>
+                    </thead>
+                    <tr align="center" valign="middle">
+                        <td class="{% if drop.0.0.want %}table-danger{% endif %}">{{drop.0.0.item}}</td>
+                        <td class="{% if drop.0.0.want %}table-danger{% endif %}">{{drop.0.0.who}}</td>
+                        <td class="{% if drop.0.1.want %}table-danger{% endif %}">{{drop.0.1.item}}</td>
+                        <td class="{% if drop.0.1.want %}table-danger{% endif %}">{{drop.0.1.who}}</td>
+                        <td class="{% if drop.0.2.want %}table-danger{% endif %}">{{drop.0.2.item}}</td>
+                        <td class="{% if drop.0.2.want %}table-danger{% endif %}">{{drop.0.2.who}}</td>
+                        <td class="{% if drop.0.3.want %}table-danger{% endif %}">{{drop.0.3.item}}</td>
+                        <td class="{% if drop.0.3.want %}table-danger{% endif %}">{{drop.0.3.who}}</td>
+                    </tr>
+                    <tr align="center" valign="middle">
+                        <td class="{% if drop.1.0.want %}table-danger{% endif %}">{{drop.1.0.item}}</td>
+                        <td class="{% if drop.1.0.want %}table-danger{% endif %}">{{drop.1.0.who}}</td>
+                        <td class="{% if drop.1.1.want %}table-danger{% endif %}">{{drop.1.1.item}}</td>
+                        <td class="{% if drop.1.1.want %}table-danger{% endif %}">{{drop.1.1.who}}</td>
+                        <td class="{% if drop.1.2.want %}table-danger{% endif %}">{{drop.1.2.item}}</td>
+                        <td class="{% if drop.1.2.want %}table-danger{% endif %}">{{drop.1.2.who}}</td>
+                        <td class="{% if drop.1.3.want %}table-danger{% endif %}">{{drop.1.3.item}}</td>
+                        <td class="{% if drop.1.3.want %}table-danger{% endif %}">{{drop.1.3.who}}</td>
+                    </tr>
+                    <tr align="center" valign="middle">
+                        <td class="{% if drop.2.0.want %}table-danger{% endif %}">{{drop.2.0.item}}</td>
+                        <td class="{% if drop.2.0.want %}table-danger{% endif %}">{{drop.2.0.who}}</td>
+                        <td class="{% if drop.2.1.want %}table-danger{% endif %}">{{drop.2.1.item}}</td>
+                        <td class="{% if drop.2.1.want %}table-danger{% endif %}">{{drop.2.1.who}}</td>
+                        <td class="{% if drop.2.2.want %}table-danger{% endif %}">{{drop.2.2.item}}</td>
+                        <td class="{% if drop.2.2.want %}table-danger{% endif %}">{{drop.2.2.who}}</td>
+                        <td class="{% if drop.2.3.want %}table-danger{% endif %}">{{drop.2.3.item}}</td>
+                        <td class="{% if drop.2.3.want %}table-danger{% endif %}">{{drop.2.3.who}}</td>
+                    </tr>
+                </table>
+            </div>
+        </td></tr>
+    {% endfor %}
+    </table>
+    <br>
+{% endblock %}

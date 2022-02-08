@@ -1,0 +1,63 @@
+{% extends 'lootmanage/base.html' %}{% load static %}
+
+{% block title %}{{floor}}層ロット入力{% endblock %}
+
+{% block head %}
+    <style type="text/css">
+        a.widelink { display: block; }
+    </style>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'lootmanage:top' %}">TOP</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{floor}}層ロット入力</li>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-1">
+                <font size="5"><b>{{floor}}層</b></font>
+            </div>
+            <div class="col-2">
+                <input type="date" name="date" class="form-control"><br>
+            </div>
+        </div>       
+        <div class="row">
+            {% for i,f in form.items %}
+                <div class="col-4">
+                    <table class="table">
+                        <tr><td>
+                            {% if f.0 == 'form' %}
+                                <select name="item{{i}}" id="id_item_{{i}}" class="form-control">
+                                    <option value="">---------</option>
+                                    {% for choice in f.1 %}
+                                        <option value="{{choice}}">{{choice}}</option>
+                                    {% endfor %}
+                                </select>
+                            {% else %}
+                                <label>{{f.1}}</label>
+                            {% endif %}
+                        </td></tr>
+                        <tr><td>
+                            <select name="who{{i}}" id="id_who{{i}}" class="form-control">
+                                <option value="">---------</option>
+                                    {% for m in member %}
+                                        <option value="{{m}}">{{m}}</option>
+                                    {% endfor %}
+                            </select>
+                        </td></tr>
+                        <tr><td>
+                            <input type="checkbox" name="hope{{i}}" id="hope" checked="checked">
+                            <label for="hope">希望品</label>
+                        </td></tr>
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-block">save</button>
+        </div>
+    </form>
+{% endblock %}
